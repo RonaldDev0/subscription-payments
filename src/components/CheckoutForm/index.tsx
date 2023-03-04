@@ -90,6 +90,7 @@ export default function CheckoutForm () {
       </button>
       {/* Show any error or success messages */}
       {message && <div>{message}</div>}
+      {email}
     </form>
   )
 }
