@@ -1,11 +1,12 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { PaymentElement, LinkAuthenticationElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import Image from 'next/image'
+import style from './checkoutForm.module.scss'
 
 export default function CheckoutForm () {
   const stripe = useStripe()
   const elements = useElements()
-
   const [email, setEmail] = useState<any>('')
   const [message, setMessage] = useState<any>(null)
   const [isLoading, setIsLoading] = useState<any>(false)
@@ -39,7 +40,7 @@ export default function CheckoutForm () {
     })
   }, [stripe])
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
 
     if (!stripe || !elements) {
@@ -49,12 +50,11 @@ export default function CheckoutForm () {
     }
 
     setIsLoading(true)
-
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: 'http://localhost:3000'
+        return_url: 'http://localhost:3000/custom'
       }
     })
 
@@ -77,52 +77,19 @@ export default function CheckoutForm () {
   }
 
   return (
-    <form id='payment-form' onSubmit={handleSubmit}>
+    <form className={style.form} onSubmit={handleSubmit}>
+      <Image width='350' height='350' src='https://i.imgur.com/HdhgbOk.png' alt='31 Image' priority />
       <LinkAuthenticationElement
-        id='link-authentication-element'
-        onChange={(e:any) => setEmail(e.target.value)}
+        onChange={({ value: { email } }: any) => setEmail(email)}
       />
-      <PaymentElement id='payment-element' options={paymentElementOptions} />
-      <button disabled={isLoading || !stripe || !elements} id='submit'>
-        <span id='button-text'>
-          {isLoading ? <div className='spinner' id='spinner'>{}</div> : 'Pay now'}
+      <PaymentElement options={paymentElementOptions} />
+      <button disabled={isLoading || !stripe || !elements} className={style.button}>
+        <span>
+          {isLoading ? 'Loading...' : 'Pay now'}
         </span>
       </button>
       {/* Show any error or success messages */}
-      {message && <div id='payment-message'>{message}</div>}
+      {message && <div>{message}</div>}
     </form>
   )
 }
-
-// 'use client'
-// import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
-// import Image from 'next/image'
-// import style from './checkoutForm.module.scss'
-
-// export default function CheckoutForm () {
-//   const stripe = useStripe()
-//   const elements: any = useElements()
-//   const price = 100
-
-//   const handleSubmit = async (e: any) => {
-//     e.preventDefault()
-//     const { error, paymentMethod: { id } }: any = await stripe?.createPaymentMethod({
-//       type: 'card',
-//       card: elements.getElement(CardElement)
-//     })
-
-//     if (!error) {
-//       console.log(id)
-//     }
-//   }
-
-//   return (
-//     <form onSubmit={handleSubmit} className={style.form}>
-//       <Image width='350' height='350' src='https://i.imgur.com/HdhgbOk.png' alt='31 Image' priority />
-//       <p className={style.priceTag}>${price}</p>
-//       <CardElement className={style.cardElement} />
-//       <button className={style.button}>Buy</button>
-//     </form>
-
-//   )
-// }

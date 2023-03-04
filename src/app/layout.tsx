@@ -1,3 +1,4 @@
+
 import { NavBarr } from '@/components'
 import { ReactNode } from 'react'
 import './globals.scss'
