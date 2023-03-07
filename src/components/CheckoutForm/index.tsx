@@ -53,7 +53,7 @@ export default function CheckoutForm ({ setMessage }: { setMessage: Function }) 
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: 'http://localhost:3000/custom'
+        return_url: 'https://subscription-payments-ronald7745.vercel.app/custom'
       }
     })
 
