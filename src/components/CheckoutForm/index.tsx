@@ -7,7 +7,7 @@ import style from './checkoutForm.module.scss'
 export default function CheckoutForm ({ setMessage }: { setMessage: Function }) {
   const stripe = useStripe()
   const elements = useElements()
-  const [email, setEmail] = useState<any>('')
+  // const [email, setEmail] = useState<any>('')
   const [isLoading, setIsLoading] = useState<any>(false)
 
   useEffect(() => {
@@ -83,7 +83,7 @@ export default function CheckoutForm ({ setMessage }: { setMessage: Function }) 
         <p className={style.description}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos consequatur excepturi deserunt quos deleniti provident explicabo animi eius eligendi veniam totam ipsam dolore, ea nulla iure expedita! Aspernatur, delectus incidunt?</p>
       </div>
       <div>
-        <LinkAuthenticationElement onChange={({ value: { email } }: any) => setEmail(email)} />
+        <LinkAuthenticationElement />
         <PaymentElement options={paymentElementOptions} />
         <button disabled={isLoading || !stripe || !elements} className={style.button}>
           <span>
