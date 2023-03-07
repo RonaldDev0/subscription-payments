@@ -1,0 +1,40 @@
+.background {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,.5); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 25%;
+  height: 25%;
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  transition: all .2s;
+}
+
+.head {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  border-bottom: 1px solid gray;
+}
+
+.exit {
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.messageContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

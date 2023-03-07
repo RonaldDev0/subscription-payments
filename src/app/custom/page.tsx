@@ -2,10 +2,13 @@
 import { useState, useEffect } from 'react'
 import { stripePromise } from '@/utils'
 import { Elements } from '@stripe/react-stripe-js'
-import { CheckoutForm } from '@/components'
+
+// Components
+import { CheckoutForm, Modal } from '@/components'
 
 export default function Custom () {
   const [clientSecret, setClientSecret] = useState('')
+  const [message, setMessage] = useState<any>(null)
 
   useEffect(() => {
     fetch('/api/create-payment-intent', {
@@ -28,7 +31,8 @@ export default function Custom () {
     <div>
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm />
+          <CheckoutForm setMessage={setMessage} />
+          {message && <Modal message={message} setMessage={setMessage} />}
         </Elements>
       )}
     </div>

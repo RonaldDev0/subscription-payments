@@ -4,11 +4,10 @@ import { PaymentElement, LinkAuthenticationElement, useStripe, useElements } fro
 import Image from 'next/image'
 import style from './checkoutForm.module.scss'
 
-export default function CheckoutForm () {
+export default function CheckoutForm ({ setMessage }: { setMessage: Function }) {
   const stripe = useStripe()
   const elements = useElements()
   const [email, setEmail] = useState<any>('')
-  const [message, setMessage] = useState<any>(null)
   const [isLoading, setIsLoading] = useState<any>(false)
 
   useEffect(() => {
@@ -78,19 +77,20 @@ export default function CheckoutForm () {
 
   return (
     <form className={style.form} onSubmit={handleSubmit}>
-      <Image width='350' height='350' src='https://i.imgur.com/HdhgbOk.png' alt='31 Image' priority />
-      <LinkAuthenticationElement
-        onChange={({ value: { email } }: any) => setEmail(email)}
-      />
-      <PaymentElement options={paymentElementOptions} />
-      <button disabled={isLoading || !stripe || !elements} className={style.button}>
-        <span>
-          {isLoading ? 'Loading...' : 'Pay now'}
-        </span>
-      </button>
-      {/* Show any error or success messages */}
-      {message && <div>{message}</div>}
-      {email}
+      <Image width='300' height='200' src='https://i.imgur.com/J4MY1D7.png' alt='31 Image' priority />
+      <div>
+        <p className={style.priceTag}>$10.00 | per month</p>
+        <p className={style.description}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos consequatur excepturi deserunt quos deleniti provident explicabo animi eius eligendi veniam totam ipsam dolore, ea nulla iure expedita! Aspernatur, delectus incidunt?</p>
+      </div>
+      <div>
+        <LinkAuthenticationElement onChange={({ value: { email } }: any) => setEmail(email)} />
+        <PaymentElement options={paymentElementOptions} />
+        <button disabled={isLoading || !stripe || !elements} className={style.button}>
+          <span>
+            {isLoading ? 'Loading...' : 'Pay now'}
+          </span>
+        </button>
+      </div>
     </form>
   )
 }

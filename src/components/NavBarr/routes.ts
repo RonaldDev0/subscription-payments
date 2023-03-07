@@ -5,12 +5,8 @@ interface page {
 
 export const pages: page[] = [
   {
-    name: 'Home',
-    path: '/'
-  },
-  {
     name: 'Prebuild Checkout',
-    path: '/prebuild'
+    path: '/'
   },
   {
     name: 'Custom Checkout',
